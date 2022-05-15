@@ -17,13 +17,14 @@ public:
     void registerUser();
     void getReviewsForDes(const std::string desName) const;
     void addReview() const;
-    void displayLoggedUserInfo()const;
+    void displayLoggedUserReviews()const;
     void logout() {
         username.clear();
     }
     bool loggedIn() {
         return !username.empty();
     }
+    void UserInterface();
 };
 
 inline bool User::validUsername(const std::string uName) const {
@@ -55,6 +56,15 @@ void User::login() {
     std::string temp;
     std::string uAndPass;
     std::string tempUsername;
+    std::fstream userD;
+    userD.open("userDatabase.txt");
+    if (userD.is_open()) {
+        userD.close();
+    }
+    else {
+        std::cerr << "Database does not exist!\n";
+        return;
+    }
     unsigned tries = 3;
 
     std::cout << "Insert username here: ";
@@ -67,7 +77,7 @@ void User::login() {
     tempUsername = temp;
 
     for(unsigned i=0; i < tries; i++){
-        std::cout << "Enter password: ";
+        std::cout << "Enter password(Tries remaining " << tries - i << "): ";
         std::getline(std::cin, temp);
         if (uAndPass.find(temp) != std::string::npos) {
             username = tempUsername;
@@ -77,31 +87,42 @@ void User::login() {
 }
 void User::registerUser() {
     std::string temp;
+    std::string dataToWrite;//Safeguard for when the program ends abruptly
+    unsigned tries = 0;//SO that the registration isn't eternal
     do {
         std::cout << "Enter username here: ";
         std::getline(std::cin, temp);
+        tries++;
         if (!validUsername(temp)) {
-            std::cout << "\nUsername MUST contain only latin letters and numbers!\n";
+            std::cout << "Username MUST contain only latin letters and numbers!\n";
             temp.clear();
         }
         else if (!getUserAndPassword(temp).empty()) {
-            std::cout << "\nUser already registered!\n";
+            std::cout << "User already registered!\n";
             temp.clear();
         }
-    } while (temp.empty());
+    } while (temp.empty() && tries < 3);
+    if (tries >= 3)return;
     username = temp;
+    dataToWrite = temp;
     std::ofstream userD;
     userD.open("userDatabase.txt", std::ios::app);
     if (userD.is_open()) {
-        userD << temp << " ";
-        std::cout << "\nEnter password: ";
+        std::cout << "Enter password: ";
         std::getline(std::cin, temp);
-        userD << temp << "\n";
+        dataToWrite.append(" ");
+        dataToWrite.append(temp);
+        dataToWrite.append(" ");
+        std::cout << "Enter email: ";
+        std::getline(std::cin, temp);
+        dataToWrite.append(temp);
+        userD << dataToWrite << '\n';
         userD.close();
     }
     else {
         std::cerr << "Could not open userDatabase.txt\n";
     }
+    
     temp = username;
     temp.append(".txt");
     userD.open(temp, std::ios::trunc);
@@ -198,7 +219,7 @@ void User::addReview() const{
     }
     else std::cerr << "Could not open reviews file!\n";
 }
-void User::displayLoggedUserInfo() const{
+void User::displayLoggedUserReviews() const{
     if (username.empty()) {
         std::cout << "User not signed in!\n";
         return;
@@ -209,5 +230,31 @@ void User::displayLoggedUserInfo() const{
     userFile.open(temp);
     while (std::getline(userFile, temp)) {
         std::cout << temp << '\n';
+    }
+}
+void User::UserInterface() {
+    std::string command;
+    while (true) {
+        std::cout << "Welcome to Traveler's Diary!\nPlease enter what you want to do(login/register/quit): ";
+        std::getline(std::cin, command);
+        if (command == "login")login();
+        else if (command == "register")registerUser();
+        else if (command == "quit")return;
+        command.clear();
+        if (loggedIn())std::cout << "\nWelcome " << getUsername() << "!\n";
+        while (loggedIn()) {
+            std::cout << "\nWhat would you want to do(add review/check profile/check reviews/logout/quit): ";
+            std::getline(std::cin >> std::ws, command);
+            if (command == "add review")addReview();
+            else if (command == "check profile")displayLoggedUserReviews();
+            else if (command == "check reviews") {
+                std::cout << "Which destination do you want the reviews for: ";
+                std::getline(std::cin >> std::ws, command);
+                getReviewsForDes(command);
+            }
+            else if (command == "logout")logout();
+            else if (command == "quit")return;
+            command.clear();
+        }
     }
 }
