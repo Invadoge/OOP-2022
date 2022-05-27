@@ -10,7 +10,7 @@ private:
     bool validUsername(const std::string) const;
     std::string getUserAndPassword(const std::string) const;
 public:
-    const std::string getUsername()const {
+    std::string getUsername()const {
         return username;
     }
     void login();
@@ -57,6 +57,8 @@ void User::login() {
     std::string uAndPass;
     std::string tempUsername;
     std::fstream userD;
+    size_t passPos;
+    size_t passPos2;
     userD.open("userDatabase.txt");
     if (userD.is_open()) {
         userD.close();
@@ -75,11 +77,12 @@ void User::login() {
         return;
     }
     tempUsername = temp;
-
     for(unsigned i=0; i < tries; i++){
         std::cout << "Enter password(Tries remaining " << tries - i << "): ";
         std::getline(std::cin, temp);
-        if (uAndPass.find(temp) != std::string::npos) {
+        passPos = uAndPass.find(" ");
+        passPos2 = uAndPass.substr(passPos+1).find(" ");
+        if (uAndPass.substr(passPos + 1, passPos2) == temp) {
             username = tempUsername;
             break;
         }
@@ -142,17 +145,23 @@ void User::getReviewsForDes(const std::string desName)const {
     std::ifstream reviews;
     reviews.open("reviews.txt");
     std::string temp;
+    int linesToread = 0;
+    double averageGrade = 0;
+    int gradecount = 0;
     if (reviews.is_open()) {
         while (std::getline(reviews, temp)) {
-            if (temp.find(desName) != std::string::npos) {
-                //each valid review consists of 3 lines
-                std::cout << temp << '\n';
-                std::getline(reviews, temp);
-                std::cout << temp << '\n';
-                std::getline(reviews, temp);
-                std::cout << temp << '\n';
+            if (temp[0] == 'b' && temp.find(desName) != std::string::npos) {
+                gradecount++;
+                averageGrade += temp[2] - '0';//this is where the grade is written
+                linesToread = temp[1] - '0';//it should always be on the second place of the first line in a review its either 2 or 3
+                std::cout << temp.substr(4) << '\n';//temp starts with string "b__ " which shouldn't be displayed
+                for (int i = 0; i < linesToread; i++) {
+                    std::getline(reviews, temp);
+                    std::cout << temp << '\n';
+                }
             }
         }
+        std::cout << "Average grade for destination: " << averageGrade / gradecount << '\n';
         reviews.close();
     }
     else std::cerr << "Could not open reviews.txt!\n";
@@ -214,7 +223,7 @@ void User::addReview() const{
     //Adding review to reviews file
     os.open("reviews.txt",std::ios::app);
     if (os.is_open()) {
-        os << username << " " << review;
+        os << 'b'<< 1 + (bool)photoCount<< review.getGrade() <<" " << username << " " << review;
         os.close();
     }
     else std::cerr << "Could not open reviews file!\n";

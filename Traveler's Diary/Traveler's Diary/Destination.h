@@ -112,7 +112,10 @@ public:
         fromTo[1] = to;
         return true;
     }
-
+    //Getters
+    short unsigned getGrade() const {
+        return grade;
+    }
     friend std::ostream& operator<<(std::ostream& filePlace, const Destination& des);
 };
 std::ostream& operator<<(std::ostream& filePlace, const Destination& des) {
