@@ -3,20 +3,23 @@
 Planet::Planet(std::string name):NamedClass{name}
 {
 }
-void Planet::addMember(Jedi toAdd)
+Planet* Planet::clone()const {
+	return new Planet{ *this };
+}
+void Planet::addMember(NamedClass* toAdd)
 {
-	SortedVector<Jedi>::addMember(inhabitants, toAdd);
+	SortedVector::addNamedClass(inhabitants, toAdd);
 }
 void Planet::sort()
 {
-	SortedVector<Jedi>::sort(inhabitants);
+	SortedVector::sort(inhabitants);
 }
 void Planet::removeMember(std::string toRemove)
 {
-	SortedVector<Jedi>::removeMember(inhabitants, toRemove);
+	SortedVector::removeNamedClass(inhabitants, toRemove);
 }
 void Planet::print(std::ostream& out)
 {
 	NamedClass::print(out);
-	SortedVector<Jedi>::print(inhabitants, out);
+	SortedVector::print(inhabitants, out);
 }

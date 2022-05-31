@@ -9,11 +9,12 @@ private:
 		"KNIGHT-ASPIRANT","KNIGHT","MASTER","BATTLE_MASTER","GRAND_MASTER" };
 
 	//short unsigned checkRankOfString(const std::string name);
-	inline const char* getRankName()const;
+	
 	inline const size_t getRankCount()const;
 public:
 	JediRank(const size_t rank);
 	JediRank(const char* rName);
+	inline const char* getRankName()const;
 	JediRank& operator++();
 	JediRank& operator--();
 	friend bool operator==(const JediRank& first, const JediRank& second);

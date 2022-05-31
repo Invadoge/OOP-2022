@@ -21,6 +21,25 @@ const JediRank Jedi::getRank() const
 {
 	return rank;
 }
+Jedi* Jedi::clone() const
+{
+	return new Jedi{ *this };
+}
+
+std::string Jedi::getString(size_t getType) const
+{
+	std::string answer;
+	switch (getType) {
+	case 1:
+		return lightsaberColor;
+	case 2:
+		answer.append(rank.getRankName());
+		return answer;
+	default:
+		return NamedClass::getName();
+	}
+}
+
 void Jedi::print(std::ostream& out) const
 {
 	NamedClass::print(out);
