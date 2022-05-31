@@ -21,11 +21,38 @@ const JediRank Jedi::getRank() const
 {
 	return rank;
 }
+<<<<<<< Updated upstream
+=======
+
+void Jedi::loadFromFile(std::istream& in)
+{
+	NamedClass::loadFromFile(in);
+	in >> age;
+	size_t temp;
+	in >> temp;
+	rank =  temp;
+	in >> jediStrength;
+	in.ignore();
+	std::getline(in, lightsaberColor);
+}
+
+void Jedi::saveToFile(std::ostream& out) const
+{
+	NamedClass::saveToFile(out);
+	out << age <<'\n';
+	out<< rank << '\n';
+	out << jediStrength << '\n';
+	out << lightsaberColor << '\n';
+}
+
+>>>>>>> Stashed changes
 void Jedi::print(std::ostream& out) const
 {
+	out << "Jedi ";
 	NamedClass::print(out);
 	out << "Age: " << age;
-	out << "\nRank: " << rank;
+	out << "\nRank: ";
+	rank.print(out);
 	out << "\nStrength: " << jediStrength;
 	out << "\nLightsaber color: " << lightsaberColor << '\n';
 }

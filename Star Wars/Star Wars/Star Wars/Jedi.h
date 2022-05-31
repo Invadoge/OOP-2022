@@ -18,7 +18,13 @@ public:
 	const short unsigned getAge()const;
 	const double getStrength()const;
 	const JediRank getRank()const;
+<<<<<<< Updated upstream
 
+=======
+	
+	void loadFromFile(std::istream&) final;
+	void saveToFile(std::ostream&)const final;
+>>>>>>> Stashed changes
 	void print(std::ostream&)const final;
 };
 

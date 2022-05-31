@@ -14,6 +14,11 @@ private:
 public:
 	JediRank(const size_t rank);
 	JediRank(const char* rName);
+<<<<<<< Updated upstream
+=======
+	const char* getRankName()const;
+	void print(std::ostream&)const;
+>>>>>>> Stashed changes
 	JediRank& operator++();
 	JediRank& operator--();
 	friend bool operator==(const JediRank& first, const JediRank& second);

@@ -1,9 +1,15 @@
 #include "JediRank.h"
 #include <iostream>
-const char* JediRank::getRankName()const {
+inline const char* JediRank::getRankName()const {
 	return rankNames[rankNumber]; 
 }
-const size_t JediRank::getRankCount()const {
+
+void JediRank::print(std::ostream& out) const
+{
+	out << getRankName();
+}
+
+inline const size_t JediRank::getRankCount()const {
 	return  sizeof(rankNames) / sizeof(rankNames[0]);
 }
 JediRank::JediRank(const size_t rank) {
@@ -38,6 +44,6 @@ bool operator<(const JediRank& lhs, const JediRank& rhs) {
 	return lhs.rankNumber < rhs.rankNumber;
 }
 std::ostream& operator<<(std::ostream& out, const JediRank& jR) {
-	out << jR.getRankName();
+	out << jR.rankNumber;
 	return out;
 }

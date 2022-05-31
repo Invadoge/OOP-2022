@@ -26,12 +26,24 @@ bool operator==(const NamedClass& lhs, const NamedClass& rhs) {
 bool operator!=(const NamedClass& lhs, const NamedClass& rhs) {
 	return !(lhs.name == rhs.name);
 }
+<<<<<<< Updated upstream
 std::ostream& operator<<(std::ostream& out, const NamedClass& nCl)
 {
 	out << nCl.name;
 	return out;
 }
+=======
+
+>>>>>>> Stashed changes
 bool operator<(const NamedClass& lhs, const NamedClass& rhs)
 {
 	return lhs.name < rhs.name;
 }
+<<<<<<< Updated upstream
+=======
+std::ostream& operator<<(std::ostream& out, const NamedClass& nCl)
+{
+	out << nCl.name;
+	return out;
+}
+>>>>>>> Stashed changes
