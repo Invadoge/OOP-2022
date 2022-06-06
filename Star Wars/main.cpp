@@ -1,7 +1,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "Planet.h"
+#include "Testing.h"
+#include "Parser.h"
 //template <class NamedClass>
 //class ContainerOfNamed {
 //	std::vector<NamedClass> members;
@@ -23,34 +24,27 @@
 //		members.erase(found);
 //	}
 //};
+//struct Test {
+//	static void operate(std::string* lhs, std::string* rhs) {
+//		std::cin >> *lhs;
+//		std::cin.ignore();
+//		std::cin >> *rhs;
+//		std::cin.ignore();
+//	}
+//};
 int main() {
-	//ContainerOfNamed<Jedi> test;
-	//test.addMember(Jedi{ "Somebody", "BATTLE_MASTER", 21, "purple",21 });
-	//test.addMember(Jedi{ "", "BATTLE_MASTER", 21, "purple",21 });
-	//test.removeMember("Somebody2");
-
-	bool (*strongerJedi)(const Jedi*, const Jedi*) =
-		[](const Jedi* lhs, const Jedi* rhs) {return lhs->getStrength() < rhs->getStrength(); };
-	Planet tester{ "Penis" };
-	Jedi test{ "Somebody", "BATTLE_MASTER", 21, "purple",21 };
-	Jedi test2{ "Somebody2", "BATTLE_MASTER", 21, "purple",21 };
-	tester.addMember(test);
-	tester.addMember(test2);
-
-	Planet tester2{ "Cock" };
-	Jedi test3{ "Jennifer", "YOUNGLING", 34, "pink",45 };
-	tester2.addMember(test3);
-	Planet result = concatPlanet(tester, tester2);
-	result.print(std::cout);
-	//testy.print(std::cout);
-	//testy.getBestJediBy(testy.strongerJedi).print(std::cout);
-	//std::ofstream testy;
-	//testy.open("Testy.txt");
-	//tester.saveToFile(testy);
-	//testy.close();
-	//std::ifstream testy2;
-	//testy2.open("Testy.txt");
-	//tester.loadFromFile(testy2);
-	//tester.print(std::cout);
+	/*std::string pesho;
+	std::string pesho2;
+	std::string pesho3;
+	std::cin >> pesho;
+	std::cin.ignore();
+	if (pesho == "pesho") {
+		std::cout << "Pesho is pesho!\n";
+		Test::operate(&pesho2, &pesho3);
+	}
+	std::cout <<"Pesho:\n" << pesho << "\nPesho2:\n" << pesho2 << "\nPesho3:\n" << pesho3 << '\n';*/
+	StarWars vanka;
+	UserInterface vankata{ vanka, std::cin, std::cout };
+	vankata.UI();
 	return 0;
 }

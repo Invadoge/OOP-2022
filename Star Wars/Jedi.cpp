@@ -5,6 +5,11 @@ void Jedi::promoteJedi(double multiplier) {
 	++rank;
 	jediStrength *= (1 + multiplier);
 }
+void Jedi::demoteJedi(double multiplier) {
+	assert(multiplier > 0 && "Multiplier must be above 0!\n");
+	--rank;
+	jediStrength *= (1 - multiplier);
+}
 std::string Jedi::getLightColor() const
 {
 	return lightsaberColor;
@@ -21,8 +26,6 @@ const JediRank Jedi::getRank() const
 {
 	return rank;
 }
-<<<<<<< Updated upstream
-=======
 
 void Jedi::loadFromFile(std::istream& in)
 {
@@ -45,7 +48,6 @@ void Jedi::saveToFile(std::ostream& out) const
 	out << lightsaberColor << '\n';
 }
 
->>>>>>> Stashed changes
 void Jedi::print(std::ostream& out) const
 {
 	out << "Jedi ";
@@ -56,11 +58,9 @@ void Jedi::print(std::ostream& out) const
 	out << "\nStrength: " << jediStrength;
 	out << "\nLightsaber color: " << lightsaberColor << '\n';
 }
-Jedi::Jedi(std::string nName, const char* nRank, short unsigned nAge, std::string nColor, double strength):
-	NamedClass{ nName }, rank{ nRank }, age{ nAge }, lightsaberColor{ nColor }, jediStrength{ strength }
+Jedi::Jedi(std::string nName, const char* nRank, short unsigned nAge, std::string nColor, double nStrength):
+	NamedClass{ nName }, rank{ nRank }, age{ nAge }, lightsaberColor{ nColor }, jediStrength{ nStrength }
 {}
-void Jedi::demoteJedi(double multiplier) {
-	assert(multiplier > 0 && "Multiplier must be above 0!\n");
-	--rank;
-	jediStrength *= (1 - multiplier);
-}
+Jedi::Jedi(std::string nName, std::string nRank, short unsigned nAge, std::string nColor, double nStrength):
+	NamedClass{ nName }, rank{ nRank }, age{ nAge }, lightsaberColor{ nColor }, jediStrength{ nStrength }
+{}

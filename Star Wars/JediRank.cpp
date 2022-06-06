@@ -29,6 +29,19 @@ JediRank::JediRank(const char* rName) {
 	}
 	assert(validName && "Invalid rank name!");
 }
+JediRank::JediRank(std::string rName)
+{
+	size_t rankCount = getRankCount();
+	bool validName{ false };
+	for (size_t i = 0; i < rankCount; i++) {
+		if (rankNames[i] == rName) {
+			rankNumber = i;
+			validName = true;
+			break;
+		}
+	}
+	assert(validName && "Invalid rank name!");
+}
 JediRank& JediRank::operator++() {
 	if (rankNumber < getRankCount() - 1)++rankNumber;
 	return *this;
@@ -39,6 +52,10 @@ JediRank& JediRank::operator--() {
 }
 bool operator==(const JediRank& first, const JediRank& second) {
 	return first.rankNumber == second.rankNumber;
+}
+bool operator!=(const JediRank& first, const JediRank& second)
+{
+	return !(first == second);
 }
 bool operator<(const JediRank& lhs, const JediRank& rhs) {
 	return lhs.rankNumber < rhs.rankNumber;

@@ -1,0 +1,6 @@
+Tiffany
+Leaning Tower, Pisa 4 13-4-2014 14-4-2014
+Amazing view! The stairs are leaning so they were hard to climb.
+tower.jpeg me.jpeg view.jpeg towersecond.png
+Edge case 4 12-12-2012 12-12-2013
+The Edge case is that when we are searching for a name, we can find it in a description and print out invalid info. Let's say I type FMI for some reason.
