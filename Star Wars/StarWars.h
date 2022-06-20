@@ -12,7 +12,7 @@ public:
 	void removeJedi(std::string, std::string);
 	std::vector<Planet>::iterator findPlanet(std::string);
 	std::vector<Planet>::const_iterator findPlanet(std::string)const;
-	std::vector<Jedi>::iterator  findJedi(std::string);
+	std::vector<Jedi>::iterator  findJedi(std::string,std::string* = nullptr);
 	std::vector<Jedi>::const_iterator findJedi(std::string)const;
 	void loadFromFile(std::istream&);
 	void saveToFile(std::ostream&)const;

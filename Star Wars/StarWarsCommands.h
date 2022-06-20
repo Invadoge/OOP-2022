@@ -122,10 +122,7 @@ class GetYoungestJedi : public Command {
 	StarWars* project;
 	bool (*youngerJedi)(const Jedi&, const Jedi&, const JediRank) =
 		[](const Jedi& lhs, const Jedi& rhs, const JediRank needed) {
-		if (lhs.getRank() == needed && rhs.getRank() == needed)return rhs.getAge() >= lhs.getAge();
-		/*if (lhs.getRank() != needed && rhs.getRank() == needed)return false;
-		if (lhs.getRank() != needed && rhs.getRank() != needed)return false;
-		if (lhs.getRank() == needed && rhs.getRank() != needed)return true;*/
+		if (lhs.getRank() == needed == rhs.getRank())return rhs.getAge() >= lhs.getAge();
 		return lhs.getRank() == needed;
 	};
 	void doExecute(const size_t commandToexecute)final {
@@ -170,10 +167,12 @@ class PrintJediOrPlanet : public Command {
 		std::getline(input, name);
 		auto toPrint = project->findPlanet(name);
 		if (toPrint == project->getEnd()) {
-			auto jToPrint = project->findJedi(name);//findJedi has built in error handling
+			std::string pname;
+			auto jToPrint = project->findJedi(name,&pname);//findJedi has built in error handling
+			output << "Planet name: "<< pname << '\n';
 			jToPrint->print(output);
 		}
-		else toPrint->print(output);
+		else toPrint->printStyles(output);
 	}
 public:
 	PrintJediOrPlanet(std::ostream& out, std::istream& in, StarWars* ptr) :output{ out }, input{ in }, project{ ptr }{}
