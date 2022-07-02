@@ -42,6 +42,9 @@ inline void TestPlanets::testLightSaberSearch()
 	tester.addMember(test4);
 	tester.addMember(test5);
 	tester.addMember(test6);
+	std::cout << "Planet: ";
+	tester.print(std::cout);
+	std::cout << "Most common lightsaber: ";
 	std::cout << tester.getMostFrequentLightSaber("INITIATE");
 }
 
@@ -56,6 +59,7 @@ inline void TestStarWars::testFindJedi(){
 	tester.addJedi("Cheese", { "Padme", "INITIATE", 21, "purple", 21 });
 	tester.addJedi("Cheese", { "Jennifer", "YOUNGLING", 34, "pink",45 });
 	tester.addJedi("Moon", { "Harry", "INITIATE", 21, "pink",21 });
+
 	tester.findJedi("Harry")->print(std::cout);
 }
 #endif // !STAR_WARS_TESTS
